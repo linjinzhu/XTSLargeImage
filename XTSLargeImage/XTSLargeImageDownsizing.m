@@ -72,7 +72,6 @@
         sourceTotalMB = sourceTotalPixels / pixelsPerMB;
         // 计算输出图片和原始图片缩放比
         imageScale = destTotalPixels / sourceTotalPixels;
-        // use the image scale to calcualte the output image width, height
         // 通过缩放比计算输出图片的宽高
         destResolution.width = (int)( sourceResolution.width * imageScale );
         destResolution.height = (int)( sourceResolution.height * imageScale );
