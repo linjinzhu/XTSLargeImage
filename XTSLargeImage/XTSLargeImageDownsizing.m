@@ -62,7 +62,7 @@
     @autoreleasepool {
         // 从文件里读取图片，此时不会从磁盘读取任何像素，真正读取像素信息是在绘制阶段
         sourceImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:kImageFilename ofType:nil]];
-        if( sourceImage == nil ) NSLog(@"input image not found!");
+        if( sourceImage == nil ) NSAssert(NO, @"image named `large_image.jpg` not found!!!");
         // 获取图片的高度和宽度
         sourceResolution.width = CGImageGetWidth(sourceImage.CGImage);
         sourceResolution.height = CGImageGetHeight(sourceImage.CGImage);
