@@ -33,7 +33,7 @@
             CGSize tileSize = CGSizeMake(256, 256);
             XTSDownsizingImageEngineComplete complete = ^(NSDictionary *tileInfo, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.scrollView setNeedsDisplay];
+                    [self updateUI];
                 });
             };
             
@@ -41,12 +41,27 @@
         });
     }
     
-    
+    [self setupUI];
+}
+
+- (void)setupUI
+{
     self.scrollView.contentSize = LargeImageSize;
     CGFloat zoomScale = self.scrollView.contentSize.height / self.view.bounds.size.height;
     self.scrollView.minimumZoomScale = 1.0 / zoomScale;
     self.scrollView.zoomScale = 1.0 / zoomScale;
     [self tiledImageView];
+}
+
+- (void)updateUI
+{
+    [_scrollView removeFromSuperview];
+    _scrollView = nil;
+    
+    [_tiledImageView removeFromSuperview];
+    _tiledImageView = nil;
+    
+    [self setupUI];
     
 }
 
@@ -84,7 +99,7 @@
         _scrollView.bouncesZoom = YES;
         _scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
         _scrollView.maximumZoomScale = 5.0f;
-        _scrollView.minimumZoomScale = 0.8f;
+        _scrollView.minimumZoomScale = 1.0f;
         _scrollView.backgroundColor = [UIColor colorWithRed:0.4f green:0.2f blue:0.2f alpha:1.0f];
         _scrollView.delegate = self;
         [self.view addSubview:_scrollView];
