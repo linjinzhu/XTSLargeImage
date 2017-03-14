@@ -1,3 +1,5 @@
 # XTSLargeImage
 
-因为大图无法提交到github，运行之前请先导入一张100MB的大图到工程里，改名为：`large_image.jpg`
+TODO：
+- 首次启动显示黑色；
+- 缓存图片之后刷新图片；
