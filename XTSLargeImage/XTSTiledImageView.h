@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol XTSTiledImageViewDataSource;
 
 @interface XTSTiledImageView : UIView
-- (id)initWithFrame:(CGRect)frame image:(UIImage*)image scale:(CGFloat)scale;
+@property (nonatomic, weak) id<XTSTiledImageViewDataSource> dataSource;
+@end
+
+@protocol XTSTiledImageViewDataSource <NSObject>
+@required
+- (UIImage *)tiledImageView:(XTSTiledImageView*)tiledImage forRow:(NSInteger)row column:(NSInteger)col;
 @end

@@ -7,67 +7,89 @@
 //
 
 #import "ViewController.h"
-#import "XTSImageScrollView.h"
-#import "XTSLargeImageDownsizing.h"
+#import "XTSDownsizingImageEngine.h"
+#import "XTSTiledImageView.h"
 
+#define LargeImageSize CGSizeMake(17000, 6375)
 
-@interface ViewController ()
+@interface ViewController () <CALayerDelegate, XTSTiledImageViewDataSource, UIScrollViewDelegate>
 {
-    UIImage *_destImage;
+    XTSTiledImageView *_tiledImageView;
 }
 
-@property (nonatomic, strong) XTSImageScrollView *scrollView;
-@property (nonatomic, strong) UIImageView *progressView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
 
 @implementation ViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    __weak __typeof(self) weakSelf = self;
-    XTSLargeImageDownsizing *downsizing = [XTSLargeImageDownsizing new];
-    [downsizing startDownsizingWithProgress:^(CGFloat progress, UIImage *image) {
-        __strong __typeof(weakSelf) self = weakSelf;
-        NSLog(@"current progress :%f", progress);
-        self.progressView.image = image;
-
-    } complete:^(UIImage *image) {
-        __strong __typeof(weakSelf) self = weakSelf;
-        _destImage = image;
-        [self.progressView removeFromSuperview];
-        self.scrollView.image = _destImage;
-    }];
+    
+    if (![XTSDownsizingImageEngine tileInfo]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            XTSDownsizingImageEngine *downsizingImageEngine = [[XTSDownsizingImageEngine alloc] init];
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"large_image" ofType:@"jpg"];
+            CGSize tileSize = CGSizeMake(256, 256);
+            XTSDownsizingImageEngineComplete complete = ^(NSDictionary *tileInfo, NSError *error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.scrollView setNeedsDisplay];
+                });
+            };
+            
+            [downsizingImageEngine startDownsizingImageWithPath:path tileSize:tileSize complete:complete];
+        });
+    }
+    
+    
+    self.scrollView.contentSize = LargeImageSize;
+    CGFloat zoomScale = self.scrollView.contentSize.height / self.view.bounds.size.height;
+    self.scrollView.minimumZoomScale = 1.0 / zoomScale;
+    self.scrollView.zoomScale = 1.0 / zoomScale;
+    [self tiledImageView];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (XTSTiledImageView *)tiledImageView
+{
+    if (!_tiledImageView) {
+        CGRect frame = {CGPointZero, LargeImageSize};
+        _tiledImageView = [[XTSTiledImageView alloc] initWithFrame:frame];
+        _tiledImageView.dataSource = self;
+        [self.scrollView addSubview:_tiledImageView];
+    }
+    return _tiledImageView;
+}
+
+- (UIImage *)tiledImageView:(XTSTiledImageView*)tiledImage forRow:(NSInteger)row column:(NSInteger)col
+{
+    NSString *imageName = [XTSDownsizingImageEngine tiledImageNameAtLocation:CGPointMake(col, row)];
+    NSString *imagePath = [[XTSDownsizingImageEngine documentPath] stringByAppendingPathComponent:imageName];
+    return [UIImage imageWithContentsOfFile:imagePath];
+}
+
+- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.tiledImageView;
 }
 
 #pragma mark - getter
 
-- (XTSImageScrollView *)scrollView
+- (UIScrollView *)scrollView
 {
     if (!_scrollView) {
-        _scrollView = [[XTSImageScrollView alloc] initWithFrame:self.view.bounds image:_destImage];
+        _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.bouncesZoom = YES;
+        _scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
+        _scrollView.maximumZoomScale = 5.0f;
+        _scrollView.minimumZoomScale = 0.8f;
+        _scrollView.backgroundColor = [UIColor colorWithRed:0.4f green:0.2f blue:0.2f alpha:1.0f];
+        _scrollView.delegate = self;
         [self.view addSubview:_scrollView];
     }
     return _scrollView;
 }
-
-- (UIImageView *)progressView
-{
-    if (!_progressView) {
-        _progressView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-        _progressView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.view addSubview:_progressView];
-    }
-
-    return _progressView;
-}
-
 
 @end

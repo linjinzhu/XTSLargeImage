@@ -14,9 +14,10 @@
 		4AD95B021E6718BA008FB679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AD95B011E6718BA008FB679 /* Assets.xcassets */; };
 		4AD95B051E6718BA008FB679 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AD95B031E6718BA008FB679 /* LaunchScreen.storyboard */; };
 		4AD95B101E6718BA008FB679 /* XTSLargeImageUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD95B0F1E6718BA008FB679 /* XTSLargeImageUITests.m */; };
-		4AD95B1C1E6718DF008FB679 /* XTSLargeImageDownsizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD95B1B1E6718DF008FB679 /* XTSLargeImageDownsizing.m */; };
-		4AD95B201E671A0B008FB679 /* XTSImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD95B1F1E671A0B008FB679 /* XTSImageScrollView.m */; };
 		4AD95B231E671A2C008FB679 /* XTSTiledImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD95B221E671A2C008FB679 /* XTSTiledImageView.m */; };
+		4AD95B311E67968C008FB679 /* large_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4AD95B301E67968C008FB679 /* large_image.jpg */; };
+		4AD95B381E6BD5B3008FB679 /* XTSTiledLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD95B371E6BD5B3008FB679 /* XTSTiledLayer.m */; };
+		4AF75AC31E744F08007409D6 /* XTSDownsizingImageEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF75AC21E744F08007409D6 /* XTSDownsizingImageEngine.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,13 +44,14 @@
 		4AD95B0B1E6718BA008FB679 /* XTSLargeImageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XTSLargeImageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AD95B0F1E6718BA008FB679 /* XTSLargeImageUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTSLargeImageUITests.m; sourceTree = "<group>"; };
 		4AD95B111E6718BA008FB679 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4AD95B1A1E6718DF008FB679 /* XTSLargeImageDownsizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSLargeImageDownsizing.h; sourceTree = "<group>"; };
-		4AD95B1B1E6718DF008FB679 /* XTSLargeImageDownsizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSLargeImageDownsizing.m; sourceTree = "<group>"; };
 		4AD95B1D1E67193A008FB679 /* XTSLargeImage.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTSLargeImage.pch; sourceTree = "<group>"; };
-		4AD95B1E1E671A0B008FB679 /* XTSImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSImageScrollView.h; sourceTree = "<group>"; };
-		4AD95B1F1E671A0B008FB679 /* XTSImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSImageScrollView.m; sourceTree = "<group>"; };
 		4AD95B211E671A2C008FB679 /* XTSTiledImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSTiledImageView.h; sourceTree = "<group>"; };
 		4AD95B221E671A2C008FB679 /* XTSTiledImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSTiledImageView.m; sourceTree = "<group>"; };
+		4AD95B301E67968C008FB679 /* large_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = large_image.jpg; sourceTree = "<group>"; };
+		4AD95B361E6BD5B3008FB679 /* XTSTiledLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSTiledLayer.h; sourceTree = "<group>"; };
+		4AD95B371E6BD5B3008FB679 /* XTSTiledLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSTiledLayer.m; sourceTree = "<group>"; };
+		4AF75AC11E744F08007409D6 /* XTSDownsizingImageEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSDownsizingImageEngine.h; sourceTree = "<group>"; };
+		4AF75AC21E744F08007409D6 /* XTSDownsizingImageEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSDownsizingImageEngine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,17 +97,16 @@
 				4AD95AF91E6718BA008FB679 /* AppDelegate.m */,
 				4AD95AFB1E6718BA008FB679 /* ViewController.h */,
 				4AD95AFC1E6718BA008FB679 /* ViewController.m */,
-				4AD95B1A1E6718DF008FB679 /* XTSLargeImageDownsizing.h */,
-				4AD95B1B1E6718DF008FB679 /* XTSLargeImageDownsizing.m */,
-				4AD95B1E1E671A0B008FB679 /* XTSImageScrollView.h */,
-				4AD95B1F1E671A0B008FB679 /* XTSImageScrollView.m */,
 				4AD95B211E671A2C008FB679 /* XTSTiledImageView.h */,
 				4AD95B221E671A2C008FB679 /* XTSTiledImageView.m */,
+				4AD95B361E6BD5B3008FB679 /* XTSTiledLayer.h */,
+				4AD95B371E6BD5B3008FB679 /* XTSTiledLayer.m */,
 				4AD95AFE1E6718BA008FB679 /* Main.storyboard */,
 				4AD95B011E6718BA008FB679 /* Assets.xcassets */,
 				4AD95B031E6718BA008FB679 /* LaunchScreen.storyboard */,
 				4AD95B061E6718BA008FB679 /* Info.plist */,
 				4AD95AF51E6718BA008FB679 /* Supporting Files */,
+				4AF75AC41E744F0D007409D6 /* DownsizingEngine */,
 			);
 			path = XTSLargeImage;
 			sourceTree = "<group>";
@@ -113,6 +114,7 @@
 		4AD95AF51E6718BA008FB679 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4AD95B301E67968C008FB679 /* large_image.jpg */,
 				4AD95AF61E6718BA008FB679 /* main.m */,
 				4AD95B1D1E67193A008FB679 /* XTSLargeImage.pch */,
 			);
@@ -126,6 +128,15 @@
 				4AD95B111E6718BA008FB679 /* Info.plist */,
 			);
 			path = XTSLargeImageUITests;
+			sourceTree = "<group>";
+		};
+		4AF75AC41E744F0D007409D6 /* DownsizingEngine */ = {
+			isa = PBXGroup;
+			children = (
+				4AF75AC11E744F08007409D6 /* XTSDownsizingImageEngine.h */,
+				4AF75AC21E744F08007409D6 /* XTSDownsizingImageEngine.m */,
+			);
+			name = DownsizingEngine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,7 +188,7 @@
 				TargetAttributes = {
 					4AD95AF11E6718BA008FB679 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 7A26Q9USBQ;
+						DevelopmentTeam = 9JGQ936LPE;
 						ProvisioningStyle = Automatic;
 					};
 					4AD95B0A1E6718BA008FB679 = {
@@ -215,6 +226,7 @@
 				4AD95B051E6718BA008FB679 /* LaunchScreen.storyboard in Resources */,
 				4AD95B021E6718BA008FB679 /* Assets.xcassets in Resources */,
 				4AD95B001E6718BA008FB679 /* Main.storyboard in Resources */,
+				4AD95B311E67968C008FB679 /* large_image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,10 +245,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AD95AFD1E6718BA008FB679 /* ViewController.m in Sources */,
+				4AF75AC31E744F08007409D6 /* XTSDownsizingImageEngine.m in Sources */,
 				4AD95B231E671A2C008FB679 /* XTSTiledImageView.m in Sources */,
-				4AD95B1C1E6718DF008FB679 /* XTSLargeImageDownsizing.m in Sources */,
 				4AD95AFA1E6718BA008FB679 /* AppDelegate.m in Sources */,
-				4AD95B201E671A0B008FB679 /* XTSImageScrollView.m in Sources */,
+				4AD95B381E6BD5B3008FB679 /* XTSTiledLayer.m in Sources */,
 				4AD95AF71E6718BA008FB679 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,7 +385,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7A26Q9USBQ;
+				DEVELOPMENT_TEAM = 9JGQ936LPE;
 				GCC_PREFIX_HEADER = XTSLargeImage/XTSLargeImage.pch;
 				INFOPLIST_FILE = XTSLargeImage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -386,7 +398,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7A26Q9USBQ;
+				DEVELOPMENT_TEAM = 9JGQ936LPE;
 				GCC_PREFIX_HEADER = XTSLargeImage/XTSLargeImage.pch;
 				INFOPLIST_FILE = XTSLargeImage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

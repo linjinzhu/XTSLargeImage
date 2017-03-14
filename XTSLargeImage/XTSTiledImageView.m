@@ -7,6 +7,7 @@
 //
 
 #import "XTSTiledImageView.h"
+#import "XTSTiledLayer.h"
 
 @interface XTSTiledImageView ()
 {
@@ -21,31 +22,56 @@
 @implementation XTSTiledImageView
 
 + (Class)layerClass {
-    return [CATiledLayer class];
+    return [XTSTiledLayer class];
 }
 
-- (id)initWithFrame:(CGRect)frame image:(UIImage*)img scale:(CGFloat)scale {
+- (XTSTiledLayer*)tiledLayer
+{
+    return (XTSTiledLayer*)self.layer;
+}
+
+- (CGSize)tileSize
+{
+    return CGSizeMake(256, 256);
+}
+
+- (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-        self.image = img;
-        imageRect = CGRectMake(0.0f, 0.0f, CGImageGetWidth(_image.CGImage), CGImageGetHeight(_image.CGImage));
-        imageScale = scale;
-        CATiledLayer *tiledLayer = (CATiledLayer *)[self layer];
-        tiledLayer.levelsOfDetail = 4;
-        tiledLayer.levelsOfDetailBias = 4;
-        tiledLayer.tileSize = CGSizeMake(512.0, 512.0);
+        self.tiledLayer.levelsOfDetail = 1;
+        self.tiledLayer.levelsOfDetailBias = 3;
+        self.tiledLayer.tileSize = self.tileSize;
     }
     return self;
 }
 
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(context);
-    // Scale the context so that the image is rendered
-    // at the correct size for the zoom level.
-    CGContextScaleCTM(context, imageScale,imageScale);
-    CGContextDrawImage(context, imageRect, _image.CGImage);
-    CGContextRestoreGState(context);	
+    
+    // first column|last column|first row|last row
+    int f_col = floorf(CGRectGetMinX(rect) / self.tileSize.width);
+    int l_col = floorf((CGRectGetMaxX(rect) - 1) / self.tileSize.width);
+    int f_row = floorf(CGRectGetMinY(rect) / self.tileSize.height);
+    int l_row = floorf((CGRectGetMaxY(rect) - 1) / self.tileSize.height);
+    
+    for (int row = f_row; row <= l_row; row++) {
+        for (int col = f_col; col <= l_col; col++) {
+            @autoreleasepool {
+                UIImage *tile = [self.dataSource tiledImageView:self forRow:row column:col];
+                if (tile) {
+                    CGRect tileRect = CGRectMake(self.tileSize.width * col, self.tileSize.height * row,
+                                                 self.tileSize.width, self.tileSize.height);
+
+                    tileRect = CGRectIntersection(self.bounds, tileRect);
+
+                    [tile drawInRect:tileRect];
+
+                    [[UIColor whiteColor] set];
+                    CGContextSetLineWidth(context, 1.0);
+                    CGContextStrokeRect(context, tileRect);
+                }
+            }
+        }
+    }
 }
 
 @end
